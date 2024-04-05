@@ -1,4 +1,4 @@
 export class QuestionDto {
-  title: string;
-  desc: string;
+  readonly title: string;
+  readonly desc: string;
 }

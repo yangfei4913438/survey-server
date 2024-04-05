@@ -1,6 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
+class List {
+  componentFeId: string; // 对应组件的 fe_id
+  value: string[]; // 多选的值
+}
+
 @Schema({
   timestamps: true, // 记录时间戳，自动添加创建时间和更新时间
   toJSON: {
@@ -13,52 +18,25 @@ import { HydratedDocument } from 'mongoose';
     },
   },
 })
-export class Question {
+export class Answer {
+  // 问卷 ID
   @Prop({ required: true })
-  title: string;
+  questionId: string; // 对应问卷的 _id
 
   @Prop()
-  desc: string;
-
-  @Prop()
-  js: string;
-
-  @Prop()
-  css: string;
-
-  @Prop({ default: false })
-  isPublished: boolean;
-
-  @Prop({ default: false })
-  isStar: boolean;
-
-  @Prop({ default: false })
-  isDeleted: boolean;
-
-  @Prop({ required: true })
-  author: string;
-
-  @Prop()
-  componentList: {
-    fe_id: string; // 前端生成的，不是后端控制的
-    type: string; // 组件类型
-    title: string; // 组件标题
-    isHidden: boolean; // 是否隐藏
-    isLocked: boolean; // 是否锁定
-    props: object; // 组件的属性
-  }[];
+  answerList: List;
 }
 
 // 类型定义
-export type QuestionDocument = HydratedDocument<Question>;
+export type AnswerDocument = HydratedDocument<Answer>;
 
 // 导出一个可操作的实例对象
-const QuestionSchema = SchemaFactory.createForClass(Question);
+const AnswerSchema = SchemaFactory.createForClass(Answer);
 
 // 定义虚拟属性id
-QuestionSchema.virtual('id').get(function () {
+AnswerSchema.virtual('id').get(function () {
   // id属性将_id字段的值转换为字符串形式。
   return this._id.toHexString();
 });
 
-export { QuestionSchema };
+export { AnswerSchema };

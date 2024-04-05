@@ -4,6 +4,9 @@ import { AppService } from './app.service';
 import { QuestionModule } from './question/question.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { AnswerModule } from './answer/answer.module';
 import * as process from 'process';
 
 // 定义 uri
@@ -18,8 +21,11 @@ const mongoURI = () => {
     ConfigModule.forRoot({
       isGlobal: true, // 注册为全局模块
     }),
-    QuestionModule,
     MongooseModule.forRoot(mongoURI()),
+    QuestionModule,
+    UserModule,
+    AuthModule,
+    AnswerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

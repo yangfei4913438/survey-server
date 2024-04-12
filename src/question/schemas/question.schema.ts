@@ -45,7 +45,7 @@ export class Question {
     title: string; // 组件标题
     isHidden: boolean; // 是否隐藏
     isLocked: boolean; // 是否锁定
-    props: object; // 组件的属性
+    props: any; // 组件的属性
   }[];
 }
 

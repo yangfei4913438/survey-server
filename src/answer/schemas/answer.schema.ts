@@ -1,9 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-class List {
+export class AnswerInfo {
   componentFeId: string; // 对应组件的 fe_id
-  value: string[]; // 多选的值
+  value: string; // 多选的值
 }
 
 @Schema({
@@ -24,7 +24,7 @@ export class Answer {
   questionId: string; // 对应问卷的 _id
 
   @Prop()
-  answerList: List;
+  answerList: AnswerInfo[];
 }
 
 // 类型定义

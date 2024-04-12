@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { AnswerModule } from './answer/answer.module';
+import { StatModule } from './stat/stat.module';
 import * as process from 'process';
 
 // 定义 uri
@@ -26,6 +27,7 @@ const mongoURI = () => {
     UserModule,
     AuthModule,
     AnswerModule,
+    StatModule,
   ],
   controllers: [AppController],
   providers: [AppService],

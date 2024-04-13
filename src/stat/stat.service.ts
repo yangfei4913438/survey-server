@@ -86,14 +86,10 @@ export class StatService {
     const q = await this.questionService.findOne(questionId); // 问卷
     if (q == null) return [];
 
-    console.log('questionId:', questionId, componentFeId);
-
     // 获取组件
     const { componentList = [] } = q;
     const comp = componentList.find((c) => c.fe_id === componentFeId);
     if (comp == null) return [];
-
-    console.log('comp:', comp);
 
     const { type, props } = comp;
     if (type !== SurveyEditorComponentTypes.radio && type !== SurveyEditorComponentTypes.checkbox) {
@@ -105,8 +101,6 @@ export class StatService {
     const total = await this.answerService.count(questionId);
     if (total === 0) return []; // 答卷总数量
 
-    console.log('total:', total);
-
     const answers = await this.answerService.findAll(questionId, {
       page: 1,
       pageSize: total, // 获取所有的，不分页
@@ -116,8 +110,6 @@ export class StatService {
     const countInfo = {};
     answers.forEach((a) => {
       const { answerList = [] } = a;
-
-      console.log('answerList:', answerList);
 
       answerList.forEach((a) => {
         if (a.componentFeId !== componentFeId) return;

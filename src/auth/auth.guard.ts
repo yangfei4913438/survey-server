@@ -4,7 +4,6 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
@@ -36,15 +35,14 @@ export class AuthGuard implements CanActivate {
     // 获取 token
     const token = this.extractTokenFromHandler(request);
     if (!token) {
-      throw new UnauthorizedException('无效的请求');
+      throw new HttpException('无效的请求', HttpStatus.FORBIDDEN);
     }
     try {
       // 解密，拿到用户信息
-      const payload = await this.jwtService.verifyAsync(token, {
+      // 将用户信息，添加到请求上下文中
+      request['user'] = await this.jwtService.verifyAsync(token, {
         secret: jwtConstants.secret,
       });
-      // 将用户信息，添加到请求上下文中
-      request['user'] = payload;
     } catch (err) {
       // token 异常才会解密失败
       console.error('token解密失败:', err);

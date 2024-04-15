@@ -20,7 +20,6 @@ WORKDIR /app
 COPY --from=build-stage /temp/dist ./dist
 COPY --from=build-stage /temp/package.json ./package.json
 COPY --from=build-stage /temp/yarn.lock ./yarn.lock
-COPY --from=build-stage /temp/.env ./.env
 COPY --from=build-stage /temp/tsconfig.json ./tsconfig.json
 
 # Installing only production dependencies
@@ -30,4 +29,4 @@ RUN yarn install --registry=https://registry.npmmirror.com/ --only=production &&
 EXPOSE 3005
 
 # Starting the application
-CMD [ "yarn", "run", "start" ]
+CMD [ "yarn", "run", "start:prod" ]

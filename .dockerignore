@@ -1,0 +1,22 @@
+# files
+*.md
+# not include readme.md
+!README.md
+
+# ides
+.vscode
+.idea
+
+# mac
+.DS_Store
+
+# project
+.git
+dist
+test
+node_modules
+.dockerignore
+.eslintignore
+.eslintrc.js
+.prettierrc
+.prettierignore

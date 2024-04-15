@@ -10,7 +10,7 @@ export class UserService {
 
   // 创建用户
   async create(userData: UserDto) {
-    const userCheck = this.userModel.findOne({ username: userData.username });
+    const userCheck = await this.userModel.findOne({ username: userData.username });
     if (!userCheck) {
       const user = new this.userModel(userData);
       return user.save();
